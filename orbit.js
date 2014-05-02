@@ -131,32 +131,32 @@ function doAll(){
     var maxDelay = 0;
 
     // Derived quantities
-    var omegaP90 = omega + 90; // Omega would be from X axis. I want from y axis.
+    var omegaPSky = omega + 180; // Omega is calculated from the plane of the sky.
 
-    if (eccentricity == 0) {omegaP90 = 180;};
+    if (eccentricity == 0) {omegaPSky = 180;};
 
-    var omegaP90RAD = omegaP90 * RADFROMDEG;
+    var omegaPSkyRAD = omegaPSky * RADFROMDEG;
 
     var semiminAxis = Math.sqrt(semimajAxis * semimajAxis * (1 - eccentricity * eccentricity));
     var focusDist = Math.sqrt(semimajAxis * semimajAxis - semiminAxis * semiminAxis);
-    var focusOffX = focusDist * Math.cos(omegaP90RAD);
-    var focusOffY = focusDist * Math.sin(omegaP90RAD);
-    console.log(omega, omegaP90, eccentricity, semimajAxis, semiminAxis);
+    var focusOffX = focusDist * Math.cos(omegaPSkyRAD);
+    var focusOffY = focusDist * Math.sin(omegaPSkyRAD);
+    console.log(omega, omegaPSky, eccentricity, semimajAxis, semiminAxis);
 
-    var phi0_x = semimajAxis * Math.cos(omegaP90RAD) + (width/2); 
-    var phi0_y = semimajAxis * Math.sin(omegaP90RAD) + (height/2); 
+    var phi0_x = semimajAxis * Math.cos(omegaPSkyRAD) + (width/2); 
+    var phi0_y = semimajAxis * Math.sin(omegaPSkyRAD) + (height/2); 
 
-    var phi90_x = semiminAxis * Math.cos(omegaP90RAD + Math.PI * 0.5) + (width/2); 
-    var phi90_y = semiminAxis * Math.sin(omegaP90RAD + Math.PI * 0.5) + (height/2); 
+    var phi90_x = semiminAxis * Math.cos(omegaPSkyRAD + Math.PI * 0.5) + (width/2); 
+    var phi90_y = semiminAxis * Math.sin(omegaPSkyRAD + Math.PI * 0.5) + (height/2); 
 
-    var phi180_x = semimajAxis * Math.cos(omegaP90RAD + Math.PI) + (width/2); 
-    var phi180_y = semimajAxis * Math.sin(omegaP90RAD + Math.PI) + (height/2); 
+    var phi180_x = semimajAxis * Math.cos(omegaPSkyRAD + Math.PI) + (width/2); 
+    var phi180_y = semimajAxis * Math.sin(omegaPSkyRAD + Math.PI) + (height/2); 
 
-    var phi270_x = semiminAxis * Math.cos(omegaP90RAD + Math.PI * 1.5) + (width/2); 
-    var phi270_y = semiminAxis * Math.sin(omegaP90RAD + Math.PI * 1.5) + (height/2); 
+    var phi270_x = semiminAxis * Math.cos(omegaPSkyRAD + Math.PI * 1.5) + (width/2); 
+    var phi270_y = semiminAxis * Math.sin(omegaPSkyRAD + Math.PI * 1.5) + (height/2); 
 
-    var distANode_x = semimajAxis * (1 - eccentricity * eccentricity) / (1 - eccentricity * Math.cos(omegaP90RAD))
-    var distDNode_x = semimajAxis * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(omegaP90RAD))
+    var distANode_x = semimajAxis * (1 - eccentricity * eccentricity) / (1 - eccentricity * Math.cos(omegaPSkyRAD))
+    var distDNode_x = semimajAxis * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(omegaPSkyRAD))
 
     /**********************
     * Define SVG canvas 
@@ -283,7 +283,7 @@ function doAll(){
     t_circle.set("y", 100);
     t_circle.set("scale", 1);
     t_circle.set("move", false);
-    t_circle.set("angle", omegaP90RAD);
+    t_circle.set("angle", omegaPSkyRAD);
     t_circle.set("orbit_period", orbitPeriod);
     circleData.push(t_circle);
 
@@ -299,7 +299,7 @@ function doAll(){
     .attr("fill", "none")
     .attr("stroke", "#ffffff")
     .attr("transform", function(d) {
-      return "translate(" +(width / 2)  + ',' + (height / 2)  + ") rotate(" + omegaP90 +  ")" 
+      return "translate(" +(width / 2)  + ',' + (height / 2)  + ") rotate(" + omegaPSky +  ")" 
     });
 
     var majorAxis = svg.append("line")
@@ -345,7 +345,7 @@ function doAll(){
     .attr("stroke", "#bb3333");
 
 
-    if (omegaP90 != 180){
+    if (omegaPSky != 180){
       var ascendingNodeText = svg.append("text")
       .attr("class", "phaseLabel")
       .attr("text-anchor", "center")
