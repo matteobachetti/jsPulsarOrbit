@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head lang=en>
+<meta charset="utf-8">
+<title>Pulsar orbit</title>
+
+<!-- Heavily copied from http://bl.ocks.org/cloudshapes/5662234 -->
+</head>
+
+
+<body>
+
+<style>
+
+svg {
+  background: #eee;
+}
+
+circle {
+  fill: steelblue;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+.plot {
+  fill: black;
+  stroke: #fff;
+  stroke-width: 0;
+}
+.node {
+  fill: red;
+  stroke: red;
+  stroke-width: 2;
+}
+
+square {
+  fill: black;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.xaxis path,
+.xaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.xaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.yaxis path,
+.yaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.yaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+</style>
+<div id="description" style="width: 640px;">
+<h1>Pulsar orbit plotter</h1>
+<p>This is a little experiment I've done to test JavaScript animations with the D3 library. It shows the orbital movement of a pulsar and (qualitatively) the change of the observed rotation period and the delay in the arrival times of the pulses due to finite light travel time.</p>
+<p>Insert eccentricity and orientation, then click Refresh page. Then... Start!</p>
+<p>Don't make it last too long. Memory efficiency is not its thing.</p>
+<p>Also, time and orbital dimensions are in arbitrary units for the time being. </p>
+<p>I will update the code to accommodate for these "uninportant" details later :).</p>
+
+</div>
+
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<script src="../d3.min.js"></script>
+<script src="../d3.slider.js"></script>
+
+<div id="inputs1" style="width: 250px;">
+  <div id="searchText" style="width: 149">Eccentricity [0-1)</div>
+  <div id="eccInDiv" style="width: 149"><input id="eccInput" name="eccentricity" type="number" value=0.8></div>
+</div>
+
+<div id="inputs2" style="width: 250px; margin-bottom:10px;">
+  <div id="searchText">Omega (degrees)</div>
+  <div id="omInDiv" style="width: 149"><input id="omegaInput" name="omega" type="number" value=30></div>
+  <div id="refrdiv"><button id="refrbtn">Refresh page</button></div>
+</div>
+
+<div id="coolStuff" style="width: 640px;">
+
+<div id="btns">
+  <div id="startdiv"><button id="startbtn">Start</button></div>
+  <div id="stopdiv"><button id="stopbtn">Stop</button></div>
+</div>
+
+<script src="orbit.js"></script>
+</div>
+<div id="description" style="width: 640px;">
+<p>PS: I copied parts of the code from different sources, that I mention in the code itself. In turn, you are free to take this code and modify it as you wish... Just do the same I did! Acknowledge this page. If this code was helpful to you, let me know! </p>
+
+</div>
+
+</body>
+</html>
+
