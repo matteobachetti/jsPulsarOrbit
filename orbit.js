@@ -76,10 +76,6 @@
   }
 
 
-// function getSearchText(value) {
-// d3.select("#searchResults").html(this.value);
-// }
-
 /*****************************
 * Math utilities
 ******************************/ 
@@ -90,6 +86,7 @@ function sign (x) {
 /*****************************
 * This plots and does everything else
 ******************************/ 
+doAll();
 function doAll(){
 
     var RADFROMDEG = Math.PI / 180.;
@@ -450,8 +447,6 @@ function doAll(){
           // Eccentric anomaly
           var E = EccAnom(ecc, t_angle / TWOPI * 360.0, 5);
 
-          // // True anomaly
-          // var TA = TrueAnom(ec,E);
           // Position
           var pos = position(t_circleData.get('rotrx'), ecc, E / 360. * TWOPI);
 
@@ -487,7 +482,7 @@ function doAll(){
           if (delay < minDelay && (!firstLoop)){minDelay = delay};
           if (obsPeriod > maxPeriod && (!firstLoop)){maxPeriod = obsPeriod};
           if (obsPeriod < minPeriod && (!firstLoop)){minPeriod = obsPeriod};
-          // if (t_elapsed > tMax) {t_circleData.set('move', false);};
+
           if (t_elapsed > tMax && (!firstLoop)) {tMax=t_elapsed;};
           if (tMax - tMin > tSpan && (!firstLoop)) {tMin = tMax - tSpan;};
 
@@ -501,21 +496,10 @@ function doAll(){
         }
       }
 
-      // if (firstLoop){firstLoop = false; return timer_ret_val};
       // Actually move the circles and the text.
       var t_circle = svg.selectAll("circle");
       t_circle
       .attr("transform", function(d) {return "translate(" + d.get('x') + "," + d.get('y') + "), scale(" + d.get('scale') + ")";});
-
-      // var xAxis = d3.svg.axis()
-      //                   .scale(svgPerXScale)
-      //                   .orient("bottom") // orientation of labels
-      //                   .ticks(5);  //Set rough # of ticks. D3 will take this as 
-
-      // svgPeriods.append("g")
-      //           .attr("class", "axis")  //Assign "axis" class
-      //           .attr("transform", "translate(0," + (plotHeight - padding) + ")") // To align it to the bottom
-      //           .call(xAxis);
 
       svgResXScale.domain([0, tMax]);
       svgResYScale.domain([minDelay, maxDelay]);
@@ -523,41 +507,14 @@ function doAll(){
       svgPerXScale.domain([0, tMax]);
       svgPerYScale.domain([minPeriod, maxPeriod]);
 
-      // // Update the Axis
-      // var svgResXAxis = d3.svg.axis().scale(svgResXScale).orient("bottom");
-      // var svgResYAxis = d3.svg.axis().scale(svgResYScale).orient("left");
-
-      // svgResiduals.selectAll("g.y.axis")
-      //       .call(svgResYAxis);
-
-      // svgResiduals.selectAll("g.x.axis")
-      //       .call(svgResXAxis);
       svgResiduals.select(".xaxis")
                         .transition()  // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                         .call(svgResXAxis);   
 
-                        svgPeriods.select(".xaxis")
+      svgPeriods.select(".xaxis")
                         .transition()  // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
                         .call(svgPerXAxis);   
 
-      // if (t_elapsed > tMax){
-      //   for (var i = 0; i<circleData.length;i++)  {
-      //     var t_circleData = circleData[i];
-      //     t_circleData.set('move', false);
-      //   }
-      // }
-      // count how many data are below tMin 
-
-      // if (delays.length > 0){
-      //   var idx = 0;
-
-      //   while (delays[idx][0] < tMin){idx++};
-
-      //   if (idx > 0){
-      //     delays.splice(0, idx - 1);
-      //     periods.splice(0, idx - 1);
-      //   }
-      // }
       var delay_symb = svgResiduals.selectAll("circle").data(delays)
       
       var circleClass = crossNode == true ? "node" : "plot";
@@ -620,10 +577,7 @@ var refrbtn=d3.select("#refrbtn");
 refrbtn.on("click", function()  {
   d3.selectAll("svg")
        .remove();
-  // d3.select("svg")
-  //      .remove();
-  // d3.select("svg")
-  //      .remove();
+       
   doAll();
 
 });

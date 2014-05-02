@@ -1,0 +1,62 @@
+svg {
+  background: #eee;
+}
+
+circle {
+  fill: steelblue;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+.plot {
+  fill: black;
+  stroke: #fff;
+  stroke-width: 0;
+}
+.node {
+  fill: red;
+  stroke: red;
+  stroke-width: 2;
+}
+
+square {
+  fill: black;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.xaxis path,
+.xaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.xaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.yaxis path,
+.yaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.yaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
