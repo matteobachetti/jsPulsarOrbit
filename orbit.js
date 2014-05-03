@@ -410,90 +410,87 @@ function doAll(){
 
     function tickFn(_elapsed) {
       timer_elapsed = _elapsed;
-      // Process all circles data. 
-      for (var i = 0; i<circleData.length;i++)  {
 
-        var t_circleData = circleData[i];
+      var t_circleData = circleData[0];
 
 
-        if (t_circleData.get('move') == true) {
-          if (t_circleData.get('starttime') == undefined){
-            t_circleData.set('starttime', _elapsed);
-          }
-
-          // Calc elapsed time.
-          var t_elapsed = _elapsed - t_circleData.get('starttime');
-
-          // Keep a record.
-          t_circleData.set('elapsed', t_elapsed);
-
-          // Calculate how far through the desired time for one iteration.
-          var t = t_elapsed / t_circleData.get('timelimit');
-
-          var rotation_radius_x = t_circleData.get('rotrx');
-          var rotation_radius_y = t_circleData.get('rotry');
-
-          var t_offsetX = t_circleData.get('offsetX');
-          var t_offsetY = t_circleData.get('offsetY');
-          
-          // Mean anomaly
-          var t_angle = 1 / t_circleData.get('orbit_period') * t;
-          t_angle -= Math.floor(t_angle);
-          t_angle *= TWOPI;
-
-          // Eccentricity
-          var ecc = Math.sqrt(1 - Math.pow(t_circleData.get('rotry') / t_circleData.get('rotrx'), 2));
-
-          // Eccentric anomaly
-          var E = EccAnom(ecc, t_angle / TWOPI * 360.0, 5);
-
-          // Position
-          var pos = position(t_circleData.get('rotrx'), ecc, E / 360. * TWOPI);
-
-          var t_x = pos[0];
-          var t_y = pos[1];
-
-          var dpos = Math.sqrt(Math.pow(lastpos[0] - pos[0], 2) + Math.pow(lastpos[1] - pos[1], 2))
-
-          // rotate figure according to angle
-          var dist = Math.sqrt(t_x * t_x + t_y * t_y);
-          var old_angle = Math.acos(t_x / dist) * sign(t_y)
-          var new_angle = t_circleData.get('angle') + old_angle;
-
-          t_x = dist * Math.cos(new_angle);
-          t_y = dist * Math.sin(new_angle);
-
-          if (sign(t_y) != sign(ySave) && ySave != "none"){crossNode = true;};
-
-
-
-
-          t_circleData.set('x', (width/2) + t_offsetX+ t_x);
-          t_circleData.set('y', (height/2) + t_offsetY + t_y);
-
-          var radialVelocity =  (t_y - lastpos[1]) / (t_elapsed - lastt);
-          /* Finally, calculate delays and periods */
-          var delay = -t_y;
-          delays.push([t_elapsed, delay]);
-          var obsPeriod = pulsePeriod * (1 + 0.001 * radialVelocity);
-          periods.push([t_elapsed, obsPeriod]);
-
-          if (delay > maxDelay && (!firstLoop)){maxDelay = delay};
-          if (delay < minDelay && (!firstLoop)){minDelay = delay};
-          if (obsPeriod > maxPeriod && (!firstLoop)){maxPeriod = obsPeriod};
-          if (obsPeriod < minPeriod && (!firstLoop)){minPeriod = obsPeriod};
-
-          if (t_elapsed > tMax && (!firstLoop)) {tMax=t_elapsed;};
-          if (tMax - tMin > tSpan && (!firstLoop)) {tMin = tMax - tSpan;};
-
-          ySave = t_y;
-
-
-          lastpos = [t_x, t_y];
-          lastt = t_elapsed;
-          firstLoop = false;
-
+      if (t_circleData.get('move') == true) {
+        if (t_circleData.get('starttime') == undefined){
+          t_circleData.set('starttime', _elapsed);
         }
+
+        // Calc elapsed time.
+        var t_elapsed = _elapsed - t_circleData.get('starttime');
+
+        // Keep a record.
+        t_circleData.set('elapsed', t_elapsed);
+
+        // Calculate how far through the desired time for one iteration.
+        var t = t_elapsed / t_circleData.get('timelimit');
+
+        var rotation_radius_x = t_circleData.get('rotrx');
+        var rotation_radius_y = t_circleData.get('rotry');
+
+        var t_offsetX = t_circleData.get('offsetX');
+        var t_offsetY = t_circleData.get('offsetY');
+        
+        // Mean anomaly
+        var t_angle = 1 / t_circleData.get('orbit_period') * t;
+        t_angle -= Math.floor(t_angle);
+        t_angle *= TWOPI;
+
+        // Eccentricity
+        var ecc = Math.sqrt(1 - Math.pow(t_circleData.get('rotry') / t_circleData.get('rotrx'), 2));
+
+        // Eccentric anomaly
+        var E = EccAnom(ecc, t_angle / TWOPI * 360.0, 5);
+
+        // Position
+        var pos = position(t_circleData.get('rotrx'), ecc, E / 360. * TWOPI);
+
+        var t_x = pos[0];
+        var t_y = pos[1];
+
+        var dpos = Math.sqrt(Math.pow(lastpos[0] - pos[0], 2) + Math.pow(lastpos[1] - pos[1], 2))
+
+        // rotate figure according to angle
+        var dist = Math.sqrt(t_x * t_x + t_y * t_y);
+        var old_angle = Math.acos(t_x / dist) * sign(t_y)
+        var new_angle = t_circleData.get('angle') + old_angle;
+
+        t_x = dist * Math.cos(new_angle);
+        t_y = dist * Math.sin(new_angle);
+
+        if (sign(t_y) != sign(ySave) && ySave != "none"){crossNode = true;};
+
+
+
+
+        t_circleData.set('x', (width/2) + t_offsetX+ t_x);
+        t_circleData.set('y', (height/2) + t_offsetY + t_y);
+
+        var radialVelocity =  (t_y - lastpos[1]) / (t_elapsed - lastt);
+        /* Finally, calculate delays and periods */
+        var delay = -t_y;
+        delays.push([t_elapsed, delay]);
+        var obsPeriod = pulsePeriod * (1 + 0.001 * radialVelocity);
+        periods.push([t_elapsed, obsPeriod]);
+
+        if (delay > maxDelay && (!firstLoop)){maxDelay = delay};
+        if (delay < minDelay && (!firstLoop)){minDelay = delay};
+        if (obsPeriod > maxPeriod && (!firstLoop)){maxPeriod = obsPeriod};
+        if (obsPeriod < minPeriod && (!firstLoop)){minPeriod = obsPeriod};
+
+        if (t_elapsed > tMax && (!firstLoop)) {tMax=t_elapsed;};
+        if (tMax - tMin > tSpan && (!firstLoop)) {tMin = tMax - tSpan;};
+
+        ySave = t_y;
+
+
+        lastpos = [t_x, t_y];
+        lastt = t_elapsed;
+        firstLoop = false;
+
       }
 
       // Actually move the circles and the text.
