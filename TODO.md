@@ -6,4 +6,4 @@ Many things, but particularly urgent are:
 
 2. Better comments in the code
 
-3. Better centering of axis labels, and X axis labels
+3. Better centering of axis labels, and particularly X axis labels
