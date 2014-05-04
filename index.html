@@ -4,6 +4,8 @@
 <head lang=en>
 <meta charset="utf-8">
 <title>Pulsar orbit</title>
+<meta name="description" content="Animation of a Pulsar orbiting around the center of mass of the binary system, and plot of the observed period and TOA delays due to orbital Doppler." >
+<meta name="keywords" content="pulsar binary D3 javascript period TOA delay Doppler Relativity">
 
 <!-- Heavily copied from http://bl.ocks.org/cloudshapes/5662234 -->
 <link rel="stylesheet" href="./orbit.css" type="text/css" />
@@ -14,9 +16,9 @@
 
 <div id="description" style="width: 640px;">
 <h1>Pulsar orbit plotter</h1>
-<p>This is a little experiment I've done to test JavaScript animations with the D3 library. It shows the orbital movement of a Pulsar and (qualitatively) the change of the observed rotation period and the delay in the arrival times of the pulses due to finite light travel time. Higher-order Relativistic effects are not included. The times at which the Pulsar crosses the ascending and descending nodes are highlighted. The time of mean longitudes 0 and 90 are also plotted, as they are usually referred to in literature. I use the convention used by some timing models (e.g., <a href="http://adsabs.harvard.edu/abs/1976ApJ...205..580B">BT</a>, <a href="http://adsabs.harvard.edu/abs/1981ApJ...247.1003D">ELL1</a>) implemented in suites like <a href="http://www.atnf.csiro.au/research/Pulsar/tempo2/">Tempo2</a> and <a href="http://www.cv.nrao.edu/~sransom/presto/">PRESTO</a> to assume T0 = TASC for circular orbits.
-The observer is at infinity, and looks from the bottom of the page.</p>
-<p>Insert eccentricity and orientation, then click Refresh page. Then... Start! Don't make it last too long. Memory efficiency is not its thing.</p>
+<p>This is a little experiment I've done to test JavaScript animations with the D3 library. It shows the orbital movement of a Pulsar and (qualitatively) the change of the observed rotation period and the delay in the arrival times of the pulses due to finite light travel time. Higher-order Relativistic effects are not included. The times at which the Pulsar crosses the ascending and descending nodes are highlighted in the plots (they can be slightly off if the animation gets slow. Will fix that.). The little black square is the center of mass of the system. The time of mean longitudes 0 and 90 are also shown, as they are usually referred to in the literature. I use the convention used by some timing models (e.g., <a href="http://adsabs.harvard.edu/abs/1976ApJ...205..580B">BT</a>, <a href="http://adsabs.harvard.edu/abs/1981ApJ...247.1003D">ELL1</a>) implemented in suites like <a href="http://www.atnf.csiro.au/research/Pulsar/tempo2/">Tempo2</a> and <a href="http://www.cv.nrao.edu/~sransom/presto/">PRESTO</a> to assume T0 = TASC for circular orbits.
+The observer is at infinity, and looks from the bottom of the page. </p>
+<p>Insert eccentricity and periastron angle, then click Refresh page. Then... Start! Don't make it last too long. Memory efficiency is not its thing.</p>
 <p>Also, time and orbital dimensions are in arbitrary units for the time being. I will update the code to accommodate for these "uninportant" details later :).</p>
 
 </div>
