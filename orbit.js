@@ -263,8 +263,10 @@ function doAll(){
         .text("TOA delay");
 
     /************************
-    * Define elliptical path 
+    * Define elliptical path - this and the clock ticks mechanism were heavily copied from
+    * http://bl.ocks.org/cloudshapes/5662234
     *************************/
+
     var circleData = [];
 
     // Elliptical motion - pulsar
@@ -462,9 +464,6 @@ function doAll(){
         t_y = dist * Math.sin(new_angle);
 
         if (sign(t_y) != sign(ySave) && ySave != "none"){crossNode = true;};
-
-
-
 
         t_circleData.set('x', (width/2) + t_offsetX+ t_x);
         t_circleData.set('y', (height/2) + t_offsetY + t_y);
