@@ -472,7 +472,7 @@ function doAll(){
         /* Finally, calculate delays and periods */
         var delay = -t_y;
         delays.push([t_elapsed, delay]);
-        var obsPeriod = pulsePeriod * (1 + 0.001 * radialVelocity);
+        var obsPeriod = pulsePeriod * (1 - 0.001 * radialVelocity);
         periods.push([t_elapsed, obsPeriod]);
 
         if (delay > maxDelay && (!firstLoop)){maxDelay = delay};
